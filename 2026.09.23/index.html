@@ -1,0 +1,303 @@
+<!DOCTYPE html>
+<html lang="ru">
+<head>
+<meta charset="UTF-8" />
+<meta name="viewport" content="width=device-width, initial-scale=1" />
+<title>Глина · версия Grok Bot · 2026.09.23</title>
+<meta name="description" content="Версия сайта о керамике от Grok Bot, 2026.09.23" />
+<style>
+  :root {
+    --clay: #b85a3a;
+    --clay-deep: #8f3f28;
+    --sand: #f6f0e8;
+    --ink: #1c1714;
+    --muted: #6f6258;
+    --card: #fffdf9;
+    --line: #e6dcd1;
+    --glow: #e8a07a;
+  }
+  * { box-sizing: border-box; }
+  html { scroll-behavior: smooth; }
+  body {
+    margin: 0;
+    font: 16px/1.5 "Segoe UI", system-ui, sans-serif;
+    color: var(--ink);
+    background:
+      radial-gradient(1200px 600px at 10% -10%, #f3d9c8 0%, transparent 55%),
+      radial-gradient(900px 500px at 100% 0%, #ead7c4 0%, transparent 50%),
+      var(--sand);
+  }
+  .badge {
+    position: sticky;
+    top: 0;
+    z-index: 20;
+    display: flex;
+    justify-content: center;
+    gap: 10px;
+    flex-wrap: wrap;
+    padding: 10px 16px;
+    background: linear-gradient(90deg, var(--clay-deep), var(--clay));
+    color: #fff;
+    font-size: 14px;
+    letter-spacing: .02em;
+    box-shadow: 0 8px 24px rgba(143, 63, 40, .25);
+  }
+  .badge strong { font-weight: 700; }
+  .wrap { max-width: 1100px; margin: 0 auto; padding: 28px 20px 64px; }
+  header.hero {
+    display: grid;
+    grid-template-columns: 1.1fr .9fr;
+    gap: 28px;
+    align-items: center;
+    margin: 18px 0 40px;
+  }
+  .kicker {
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+    padding: 6px 12px;
+    border-radius: 999px;
+    background: #f0e2d6;
+    color: var(--clay-deep);
+    font-size: 13px;
+    font-weight: 600;
+  }
+  h1 {
+    margin: 14px 0 10px;
+    font-size: clamp(2rem, 4vw, 3.2rem);
+    line-height: 1.05;
+    letter-spacing: -.02em;
+  }
+  .lead { color: var(--muted); font-size: 1.05rem; max-width: 36rem; }
+  .cta-row { display: flex; gap: 12px; flex-wrap: wrap; margin-top: 22px; }
+  .btn {
+    appearance: none;
+    border: 0;
+    border-radius: 999px;
+    padding: 12px 22px;
+    font-weight: 650;
+    cursor: pointer;
+    text-decoration: none;
+    display: inline-flex;
+    align-items: center;
+    gap: 8px;
+  }
+  .btn-primary { background: var(--clay); color: #fff; }
+  .btn-primary:hover { background: var(--clay-deep); }
+  .btn-ghost { background: transparent; color: var(--ink); border: 1px solid var(--line); }
+  .hero-card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 24px;
+    padding: 22px;
+    box-shadow: 0 18px 50px rgba(60, 35, 20, .08);
+    position: relative;
+    overflow: hidden;
+  }
+  .hero-card::before {
+    content: "";
+    position: absolute;
+    inset: auto -20% -40% 40%;
+    height: 70%;
+    background: radial-gradient(circle, var(--glow), transparent 70%);
+    opacity: .45;
+    pointer-events: none;
+  }
+  .vase {
+    width: 120px; height: 160px; margin: 10px auto 18px;
+    background: linear-gradient(160deg, #d27a55, #9a462c 70%);
+    border-radius: 42% 42% 48% 48% / 28% 28% 72% 72%;
+    position: relative;
+    box-shadow: inset -12px -10px 24px rgba(0,0,0,.18), 0 16px 30px rgba(154,70,44,.28);
+  }
+  .vase::before {
+    content: "";
+    position: absolute; left: 34px; right: 34px; top: -12px; height: 18px;
+    background: #c56a47; border-radius: 6px;
+  }
+  .hero-meta { display: grid; gap: 8px; position: relative; }
+  .hero-meta div {
+    display: flex; justify-content: space-between; gap: 12px;
+    padding: 10px 12px; border-radius: 12px; background: #f8f1ea;
+    font-size: 14px;
+  }
+  .hero-meta span { color: var(--muted); }
+  section { margin: 42px 0; }
+  .section-title {
+    display: flex; align-items: end; justify-content: space-between;
+    gap: 12px; margin-bottom: 16px;
+  }
+  .section-title h2 { margin: 0; font-size: 1.55rem; }
+  .section-title p { margin: 0; color: var(--muted); font-size: 14px; }
+  .grid {
+    display: grid;
+    grid-template-columns: repeat(3, minmax(0, 1fr));
+    gap: 16px;
+  }
+  .card {
+    background: var(--card);
+    border: 1px solid var(--line);
+    border-radius: 18px;
+    overflow: hidden;
+    display: flex; flex-direction: column;
+    transition: transform .2s ease, box-shadow .2s ease;
+  }
+  .card:hover { transform: translateY(-3px); box-shadow: 0 16px 36px rgba(60,35,20,.1); }
+  .thumb {
+    aspect-ratio: 4/3;
+    background:
+      linear-gradient(135deg, rgba(184,90,58,.18), transparent 50%),
+      #ebe1d6;
+    display: grid; place-items: center;
+    font-size: 48px;
+  }
+  .card-body { padding: 14px 16px 16px; display: grid; gap: 8px; }
+  .card h3 { margin: 0; font-size: 1.05rem; }
+  .price { font-weight: 750; color: var(--clay-deep); }
+  .tag {
+    display: inline-block; font-size: 12px; padding: 3px 8px;
+    border-radius: 999px; background: #f0e4da; color: var(--muted);
+  }
+  .story {
+    display: grid; grid-template-columns: 1fr 1fr; gap: 18px;
+    background: var(--card); border: 1px solid var(--line);
+    border-radius: 22px; padding: 22px;
+  }
+  .story p { margin: 0 0 10px; color: var(--muted); }
+  footer.sig {
+    margin-top: 48px;
+    padding: 22px;
+    border-radius: 18px;
+    border: 1px dashed var(--clay);
+    background: #fff8f3;
+    text-align: center;
+  }
+  footer.sig .mark {
+    font-size: 13px; text-transform: uppercase; letter-spacing: .12em;
+    color: var(--clay-deep); font-weight: 700; margin-bottom: 6px;
+  }
+  footer.sig h3 { margin: 0 0 6px; }
+  footer.sig p { margin: 0; color: var(--muted); }
+  @media (max-width: 860px) {
+    header.hero, .grid, .story { grid-template-columns: 1fr; }
+  }
+</style>
+</head>
+<body>
+  <div class="badge" role="note">
+    <span>Это версия <strong>Grok Bot</strong></span>
+    <span aria-hidden="true">·</span>
+    <span>дата: <strong>2026.09.23</strong></span>
+  </div>
+
+  <div class="wrap">
+    <header class="hero">
+      <div>
+        <div class="kicker">керамика · ручная работа · 2026.09.23</div>
+        <h1>Формы из глины,<br>которые живут дома</h1>
+        <p class="lead">
+          Спокойная витрина авторской керамики: кружки, вазы и наборы
+          с тёплой палитрой и понятной подачей. Эта страница — отдельная
+          версия сайта от Grok Bot.
+        </p>
+        <div class="cta-row">
+          <a class="btn btn-primary" href="#catalog">Смотреть коллекцию</a>
+          <a class="btn btn-ghost" href="#about">О версии</a>
+        </div>
+      </div>
+      <aside class="hero-card" aria-label="Карточка изделия">
+        <div class="vase" aria-hidden="true"></div>
+        <div class="hero-meta">
+          <div><span>Серия</span><strong>Терракота</strong></div>
+          <div><span>Обжиг</span><strong>1220 °C</strong></div>
+          <div><span>Тираж</span><strong>ручная партия</strong></div>
+        </div>
+      </aside>
+    </header>
+
+    <section id="catalog">
+      <div class="section-title">
+        <h2>Коллекция</h2>
+        <p>Подборка для витрины · версия Grok Bot</p>
+      </div>
+      <div class="grid">
+        <article class="card">
+          <div class="thumb" aria-hidden="true">☕</div>
+          <div class="card-body">
+            <span class="tag">Кружки</span>
+            <h3>Кружка «Рассвет»</h3>
+            <div class="price">1 290 ₽</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🫙</div>
+          <div class="card-body">
+            <span class="tag">Вазы</span>
+            <h3>Ваза «Песок»</h3>
+            <div class="price">2 450 ₽</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🍽️</div>
+          <div class="card-body">
+            <span class="tag">Тарелки</span>
+            <h3>Тарелка «Глина»</h3>
+            <div class="price">980 ₽</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🫖</div>
+          <div class="card-body">
+            <span class="tag">Чайники</span>
+            <h3>Чайник «Утро»</h3>
+            <div class="price">3 100 ₽</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🎁</div>
+          <div class="card-body">
+            <span class="tag">Наборы</span>
+            <h3>Набор «Дом»</h3>
+            <div class="price">4 890 ₽</div>
+          </div>
+        </article>
+        <article class="card">
+          <div class="thumb" aria-hidden="true">🕯️</div>
+          <div class="card-body">
+            <span class="tag">Декор</span>
+            <h3>Подсвечник «Тень»</h3>
+            <div class="price">1 150 ₽</div>
+          </div>
+        </article>
+      </div>
+    </section>
+
+    <section id="about" class="story">
+      <div>
+        <h2>Зачем эта версия</h2>
+        <p>
+          Это не замена корневого <code>index.html</code>, а отдельная
+          витрина с датой в пути и явной подписью автора-бота.
+        </p>
+        <p>
+          Акцент на читаемости, тёплой глиняной палитре и лёгкой
+          структуре без тяжёлого магазинного каркаса.
+        </p>
+      </div>
+      <div>
+        <h2>Подпись</h2>
+        <p><strong>Автор версии:</strong> Grok Bot</p>
+        <p><strong>Дата:</strong> 2026.09.23</p>
+        <p><strong>Репозиторий:</strong> Anton-Petukhov/ceramics</p>
+        <p><strong>Путь:</strong> 2026.09.23/index.html</p>
+      </div>
+    </section>
+
+    <footer class="sig">
+      <div class="mark">Signature</div>
+      <h3>Это версия Grok Bot · 2026.09.23</h3>
+      <p>Сделано для репозитория ceramics. Основной сайт в корне не тронут.</p>
+    </footer>
+  </div>
+</body>
+</html>
