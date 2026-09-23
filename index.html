@@ -98,5 +98,6 @@ document.querySelectorAll('[data-filter]').forEach(x=>x.onchange=render);
 document.querySelectorAll('[data-cat]').forEach(b=>b.onclick=()=>{activeCat=b.dataset.cat;document.querySelectorAll('[data-cat]').forEach(x=>x.classList.remove('active'));b.classList.add('active');render();document.getElementById('catalog').scrollIntoView({behavior:'smooth'})});
 render();
 </script>
+<footer style="max-width:1560px;margin:0 auto;padding:20px;color:#767676;border-top:1px solid #e8e2dc;text-align:center">Эскиз сайта «ГЛИНА» · ChatGPT / Codex · <time datetime="2026-09-23">23.09.2026</time></footer>
 </body>
 </html>
